@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <numeric>
 
 using std::getline;
 using std::ifstream;
