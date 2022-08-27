@@ -35,7 +35,13 @@ float Process::CpuUtilization() {
  *
  * @return string
  */
-string Process::Command() const { return LinuxParser::Command(Pid()); }
+string Process::Command() const {
+  string command = LinuxParser::Command(Pid());
+  if (command.size() > 40) {
+    command = command.substr(0, 40) + "...";
+  }
+  return command;
+}
 
 /**
  * @brief Returns this process's memory utilization
