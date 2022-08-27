@@ -11,10 +11,7 @@
 #include "process.h"
 #include "processor.h"
 
-using std::set;
-using std::size_t;
-using std::string;
-using std::vector;
+using namespace std;
 
 /**
  * @brief Returns the system's CPU
@@ -30,17 +27,15 @@ Processor& System::Cpu() { return cpu_; }
  */
 vector<Process>& System::Processes() {
   vector<int> pids = LinuxParser::Pids();
-  for (int pid : pids) {
+  for (const int& pid : pids) {
     auto exists =
         std::find_if(processes_.begin(), processes_.end(),
                      [&pid](Process& process) { return process.Pid() == pid; });
     if (exists == processes_.end()) {
-      Process process(pid);
-      processes_.emplace_back(process);
+      processes_.emplace_back(pid);
     }
   }
-  std::sort(processes_.begin(), processes_.end());
-  std::reverse(processes_.begin(), processes_.end());
+  std::sort(processes_.rbegin(), processes_.rend());
   return processes_;
 }
 
